@@ -1,0 +1,73 @@
+\section{Agentic AI Onboarding}
+
+\subsection{Tokens, Context, and the Boundaries of Language Models}
+
+Modern Large Language Models (LLMs) operate as probabilistic, autoregressive sequence generators. Understanding their mechanics requires dissecting how text is discretized into tokens, represented in vector space, and processed within finite context windows. In general we can say that the model produces a probability distribution over possible next token conditioned on preceding tokens (context).
+
+\subsubsection{Probabilistic Foundations: From $n$-grams to Autoregressive LLMs}
+
+Historically, language modeling relied on $n$-gram models, which restricted history to a fixed window of preceding words.
+\noindent
+Modern LLMs eliminate this rigid history truncation by considering the full context available within their context window. Given a sequence of preceding tokens $(t_1, t_2, \dots, t_{k-1})$, the model estimates a probability distribution over the entire finite vocabulary $V$ for the next token $t_k$:
+\[
+P(t_k \mid t_1, t_2, \dots, t_{k-1}) \quad \text{for } t_k \in V
+\]
+
+\noindent
+\textbf{The Generation Loop:} Text generation is iterative rather than single-pass. At each step, a decoding procedure selects a token from the distribution, appends it to the context, and feeds the updated sequence back into the model to predict the subsequent token.
+
+\subsubsection{Discretization: Tokenization and Vocabulary Design}
+
+Before text can be processed mathematically, it must be segmented into discrete units called \textbf{tokens}.
+
+\begin{itemize}
+    \item \textbf{Token Definitions:} A token can represent a whole word, a subword fragment, punctuation, or whitespace. Segmentation depends entirely on the specific tokenizer algorithm used (e.g., Byte-Pair Encoding or WordPiece).
+    \item \textbf{The Open-Ended Input Problem:} Human language is open-ended, containing unseen words, typos, code snippets, and neologisms. A dictionary containing every complete word is impossible to maintain.
+    \item \textbf{Subword Units as a Solution:} By constructing a finite vocabulary of reusable subwords and characters, an LLM can represent an infinite variety of input strings without encountering out-of-vocabulary (OOV) errors.
+    \item \textbf{Practical Consequence:} There is no 1:1 mapping between word count and token count. Code fragments, non-English text, and technical jargon often require significantly more tokens per word than standard English prose.
+\end{itemize}
+
+\subsubsection{Identifiers vs. Vector Representations (Embeddings)}
+
+Each token in the vocabulary is assigned an integer label known as a \textbf{Token ID}.\\
+
+\noindent
+Pipeline: Raw Text $\longrightarrow$ Tokens $\longrightarrow$ Token IDs $\longrightarrow$ Continuous Embedding Vectors
+
+\begin{itemize}
+    \item \textbf{Token IDs are Arbitrary Labels:} The numerical value of a Token ID (e.g., ID \texttt{4521} vs. ID \texttt{4522}) encodes no intrinsic meaning or semantic relationship.
+    \item \textbf{Embedding Projections:} To capture semantic relationships, Token IDs are mapped into high-dimensional vector spaces (\textbf{embeddings}). Through these continuous representations, the model learns syntactic roles, contextual semantics, and relational patterns across the vocabulary.
+\end{itemize}
+
+\begin{tcolorbox}[title=Core Architectural Takeaways]
+\begin{enumerate}
+    \item \textbf{Tokenization} determines the discrete, finite units that enter the model.
+    \item \textbf{Representation (Embeddings)} determines what the model can learn about relationships between those units.
+\end{enumerate}
+\end{tcolorbox}
+
+\subsubsection{Context Sensitivity and Epistemic Boundaries}
+
+Prediction is strictly conditioned on context. Modifying a single preceding token can shift the probability distribution assigned across the entire vocabulary for all subsequent steps.
+
+\begin{itemize}
+    \item \textbf{Finite Context Limits:} Modern models support large context windows, but context remains finite and is strictly measured in \textbf{tokens}, not sentences, pages, or words.
+    \item \textbf{Probability vs. Truth (The Epistemic Gap):} High probability under the model simply indicates that a token sequence aligns with learned statistical patterns and the provided prompt. 
+\end{itemize}
+
+\begin{warningbox}
+\textbf{Critical Security \& Decision Risk:} A high output probability \textbf{does not} establish that a statement is factually true, logical, backed by real-world evidence, or safe for automated organizational decision-making. High likelihood $\neq$ Truth.
+\end{warningbox}
+
+\clearpage
+\subsection{Embeddings, Contextual Representation, and Attention}
+
+
+
+
+
+
+
+
+
+
