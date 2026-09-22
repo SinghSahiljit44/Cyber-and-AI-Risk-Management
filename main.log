@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.27)  19 SEP 2026 12:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.27)  22 SEP 2026 11:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1016,7 +1016,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
- (main.aux (title.aux) (Lecture1.aux) (Agentic AI onboarding.aux))
+ (main.aux (title.aux) (Lecture1.aux) (Agentic AI onboarding.aux) (Lecture2.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
@@ -1141,7 +1141,7 @@ Package babel Info: Main language set to 'english'.
 \openout2 = `title.aux'.
 
  (title.tex
-<figures/frontespizio.png, id=102, 205.9695pt x 85.41pt>
+<figures/frontespizio.png, id=106, 205.9695pt x 85.41pt>
 File: figures/frontespizio.png Graphic file (type png)
 <use figures/frontespizio.png>
 Package pdftex.def Info: figures/frontespizio.png  used on input line 4.
@@ -1177,7 +1177,7 @@ l.11 \include{Lecture1}
 \openout2 = `Lecture1.aux'.
 
  (Lecture1.tex
-<figures/HFOpenAiIncident.jpg, id=134, 1327.96124pt x 803.0pt>
+<figures/HFOpenAiIncident.jpg, id=139, 1327.96124pt x 803.0pt>
 File: figures/HFOpenAiIncident.jpg Graphic file (type jpg)
 <use figures/HFOpenAiIncident.jpg>
 Package pdftex.def Info: figures/HFOpenAiIncident.jpg  used on input line 24.
@@ -1226,29 +1226,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
 ] [7]) [8
 
-] (main.aux (title.aux) (Lecture1.aux) (Agentic AI onboarding.aux))
+]
+\openout2 = `Lecture2.aux'.
+
+ (Lecture2.tex) [9
+
+
+
+] (main.aux (title.aux) (Lecture1.aux) (Agentic AI onboarding.aux) (Lecture2.aux))
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-07-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 495E30BD0757E24C92DD40FB438A1CB7;4620.
+(rerunfilecheck)             Checksum: 6C1541DF907E13AE27C599F164BC4B95;4711.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 49989 strings out of 467501
- 1154237 string characters out of 5408550
- 2133731 words of memory out of 5000000
- 78429 multiletter control sequences out of 15000+600000
+ 50017 strings out of 467501
+ 1155102 string characters out of 5408550
+ 2136525 words of memory out of 5000000
+ 78448 multiletter control sequences out of 15000+600000
  638955 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  107i,9n,110p,1274b,1878s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\sahil\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/sahil/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (9 pages, 882121 bytes).
+Output written on main.pdf (10 pages, 883815 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 287 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 257 PDF objects out of 1000 (max. 8388607)
+ 37 named destinations out of 1000 (max. 500000)
+ 295 words of extra memory for PDF output out of 10000 (max. 10000000)
 
