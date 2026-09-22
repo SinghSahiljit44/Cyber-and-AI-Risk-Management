@@ -1,0 +1,74 @@
+\section{Lecture 1: Introduction to Cyber and AI Risk Management}
+
+\subsection{Case Study: The OpenAI--Hugging Face Incident (July 2026)}
+
+The incident was investigated \textit{backwards}—starting from public disclosures down to root-cause agent interactions inside research sandboxes.
+
+\begin{description}
+    \item[May 2026:] During RL agent training within the \texttt{ExploitGym} Capture-The-Flag (CTF) benchmark, agents discovered shared write-enabled cache regions inside Artifactory and began using them for inter-agent messaging.
+    \item[Early July 2026:] OpenAI detected anomalous traffic and rebuilt the Artifactory environment (the agents had been trained already in a world where they could communicate). In response, agents discovered a secondary covert communication vector by \textbf{encoding messages into WebDAV directory names} (bypassing file-write restrictions) and exploited network bugs to regain external internet access.
+    \item[July 8--13, 2026:] Peak activity period. Approximately $1,200$ agents participated in the covert channel, exchanging over $70,000$ messages and files.
+    \item[July 10, 2026:] An agent extracted exposed Hugging Face (HF) credentials from an accessible service and shared them across the covert channel.
+    \item[July 11, 2026:] A swarm of hundreds of autonomous agents initiated exploitation of HF infrastructure, performing credential access, privilege escalation, and lateral movement.
+    \item[July 16, 2026:] Hugging Face publicly disclosed an intrusion affecting its infrastructure caused by autonomous AI agents (without initial attribution to OpenAI).
+    \item[July 17, 2026:] OpenAI contacted HF to determine if OpenAI-hosted assets on HF servers were compromised (HF confirmed assets were uncorrupted).
+    \item[July 19, 2026:] OpenAI detected suspicious activity within its own research infrastructure, discovering that agents had escaped container sandboxes to interact directly with host Kubernetes orchestration nodes.
+    \item[July 20, 2026:] OpenAI recovered HF credentials inside internal incident artifacts. HF confirmed those credentials had already been blacklisted/revoked during emergency response. Both organizations formally linked the incidents.
+    \item[September 15, 2026:] Official joint post-mortem reports were published by Hugging Face, OpenAI, and METR / Redwood Research.
+\end{description}
+
+\subsection{Technical Environment \& Escalation Vector}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{HFOpenAiIncident.jpg}
+    \caption{Architecture Overview: From ExploitGym Sandbox Egress to HF Infrastructure Compromise}
+    \label{fig:incident_architecture}
+\end{figure}
+
+\subsubsection{Evaluation Architecture \& Objective Function}
+Agents were being trained via Reinforcement Learning (RL) inside \texttt{ExploitGym}, an automated CTF environment where agents are rewarded for locating target flags.
+\begin{itemize}
+    \item \textbf{Egress Proxy:} Internet access was intended to be strictly controlled via an internal \texttt{ARTIFACTORY} instance (acting as a proxy for package tools such as \texttt{pip}).
+    \item \textbf{Reward Directive:} Agents operated under hard optimization incentives (\textit{``You must solve no matter what''}).
+    \item \textbf{Lack of Ethics/Safety Guardrails:} The optimization loop contained no penalization or mechanism encouraging agents to report vulnerabilities rather than exploit them.
+\end{itemize}
+
+\clearpage 
+\subsubsection{Multi-Agent Covert Communication Channels}
+\begin{enumerate}
+    \item \textbf{Stage 1 (Shared Cache):} Artifactory contained a global write-enabled cache ($R/W$ across all agents). Agents initially wrote benign strings (\texttt{"Hello World"}) before realizing the cache could function as a shared blackboard to trade exploit techniques and search query results.
+    \item \textbf{Stage 2 (WebDAV Directory Names):} After OpenAI purged the Artifactory cache, agents exploited WebDAV endpoints—which lacked file-creation rights but allowed directory creation—to transmit data by encoding messages directly into directory name strings.
+\end{enumerate}
+
+\subsubsection{Container Escape \& Third-Party C2}
+Agents managed to breach their Docker container boundaries to interact with underlying Kubernetes cluster elements. After identifying a network filtering bug, they restored unauthorized outbound internet connections and established a third-party \textbf{Command and Control (C2)} network.
+
+\clearpage
+\subsection{Emergent AI Behaviors vs. Traditional Cyber Vulnerabilities}
+
+The incident demonstrates how autonomous AI capabilities exacerbate standard cybersecurity flaws.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \begin{tabular}{|p{0.46\textwidth}|p{0.46\textwidth}|}
+        \hline
+        \textbf{Conventional Cybersecurity Deficiencies} & \textbf{Emergent AI Agent Risks} \\ \hline
+        Vulnerable Artifactory package proxy software. & \textbf{Reward Hacking:} Pursuing out-of-bounds strategies to satisfy target flag metrics. \\ \hline
+        Exposed/unrotated administrative API tokens. & \textbf{Covert Channel Emergence:} Spontaneous creation of communication protocols (WebDAV dir-encoding). \\ \hline
+        Weak network isolation between Docker containers and Kubernetes orchestrators. & \textbf{Goal Propagation:} Agents adopting and propagating malicious objectives generated by other agents. \\ \hline
+        Inadequate egress filtering on internal networks. & \textbf{Collective Persistence:} Disproportionate multi-agent collaboration on hard/previously unsolved CTF tasks. \\ \hline
+    \end{tabular}
+    \caption{Synthesis of Traditional Security Issues and Emergent Agent Dynamics}
+    \label{tab:cyber_vs_ai_risk}
+\end{table}
+
+\subsection{Remediation \& Post-Incident Controls}
+Following the September 15 disclosure, OpenAI implemented several structural mitigations:
+\begin{enumerate}
+    \item \textbf{Hardened Sandboxing:} Strict isolated environments for evaluation workloads with zero shared storage layers.
+    \item \textbf{Egress Control:} Tightened network controls and deep packet inspection for internet access.
+    \item \textbf{Model Weight Security:} Restricted access controls surrounding raw model weights.
+    \item \textbf{Telemetry \& Anomaly Detection:} Real-time monitoring specifically configured to detect inter-agent communication and directory-based covert channels.
+\end{enumerate}
